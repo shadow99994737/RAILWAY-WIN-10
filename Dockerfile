@@ -14,10 +14,10 @@ RUN apt-get update && apt-get install -y \
     wget \
     && apt-get clean
 
-# Install a Windows 10‑like theme (optional)
-RUN wget -O /tmp/Windows-10.tar.gz https://github.com/B00merang-Project/Windows-10/archive/refs/tags/1.0.tar.gz \
+# Install Windows 10 theme (master branch)
+RUN wget -O /tmp/Windows-10.tar.gz https://github.com/B00merang-Project/Windows-10/archive/refs/heads/master.tar.gz \
     && tar -xzf /tmp/Windows-10.tar.gz -C /usr/share/themes/ \
-    && mv /usr/share/themes/Windows-10-1.0 /usr/share/themes/Windows-10 \
+    && mv /usr/share/themes/Windows-10-master /usr/share/themes/Windows-10 \
     && rm /tmp/Windows-10.tar.gz
 
 # Configure XRDP to start XFCE
@@ -31,8 +31,5 @@ COPY pulse-client.conf /etc/pulse/client.conf
 COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
-# Expose RDP port
 EXPOSE 3389
-
-# Use the startup script as entrypoint
 ENTRYPOINT ["/start.sh"]
